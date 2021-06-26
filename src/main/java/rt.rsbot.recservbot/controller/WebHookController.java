@@ -4,14 +4,17 @@ import org.springframework.web.bind.annotation.*;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import rt.rsbot.recservbot.RecruitingServiceBot;
+import rt.rsbot.recservbot.botApi.BotRestHandle;
 
 @RestController
 @RequestMapping("/")
 public class WebHookController {
-    private final RecruitingServiceBot bot;
+    private RecruitingServiceBot bot;
+    private BotRestHandle botRestHandle;
 
-    public WebHookController(RecruitingServiceBot bot) {
+    public WebHookController(RecruitingServiceBot bot, BotRestHandle botRestHandle) {
         this.bot = bot;
+        this.botRestHandle = botRestHandle;
     }
 
     @PostMapping("/")
@@ -19,9 +22,9 @@ public class WebHookController {
         return bot.onWebhookUpdateReceived(update);
     }
 
-    @PostMapping("/api")
-    @ResponseBody
+    @PutMapping("/")
     public String str (@RequestBody Object obj){
-        return "Good";
+        botRestHandle.handleRest(obj);
+        return "Success";
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.meta.ApiContext;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import rt.rsbot.recservbot.RecruitingServiceBot;
 import rt.rsbot.recservbot.botApi.BotUpdateHandle;
 
@@ -14,18 +15,19 @@ import rt.rsbot.recservbot.botApi.BotUpdateHandle;
 @Setter
 @Configuration
 @ConfigurationProperties(prefix = "telegrambot")
-class BotConfig {
+public class BotConfig {
     private String username;
     private String token;
     private String webHookPath;
 
     @Bean
-    public RecruitingServiceBot recruitingServiceBot(BotUpdateHandle tFacade) {
+    public RecruitingServiceBot recruitingServiceBot(BotUpdateHandle tFacade) throws TelegramApiRequestException {
         DefaultBotOptions options = ApiContext.getInstance(DefaultBotOptions.class);
         RecruitingServiceBot recruitingServiceBot = new RecruitingServiceBot(options, tFacade);
         recruitingServiceBot.setUsername(username);
         recruitingServiceBot.setToken(token);
         recruitingServiceBot.setWebHookPath(webHookPath);
+        recruitingServiceBot.setWebhook(webHookPath, null);
 
         return recruitingServiceBot;
     }
