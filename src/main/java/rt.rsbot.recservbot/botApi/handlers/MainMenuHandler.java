@@ -10,6 +10,7 @@ import rt.rsbot.recservbot.service.MainMenuService;
 
 @Component
 public class MainMenuHandler implements InputMessageHandler {
+
     private MainMenuService mainMenuService;
 
     public MainMenuHandler(MainMenuService mainMenuService) {

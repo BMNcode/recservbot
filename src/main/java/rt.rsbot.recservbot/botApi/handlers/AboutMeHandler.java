@@ -8,6 +8,7 @@ import rt.rsbot.recservbot.botApi.InputMessageHandler;
 
 @Component
 public class AboutMeHandler implements InputMessageHandler {
+
     @Override
     public SendMessage handle(Message message) {
        return new SendMessage(message.getChatId(), "Данный бот создан для учебного проекта группы BrainHub");

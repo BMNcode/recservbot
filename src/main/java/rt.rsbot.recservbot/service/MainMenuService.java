@@ -29,14 +29,17 @@ public class MainMenuService {
         KeyboardRow row2 = new KeyboardRow();
         KeyboardRow row3 = new KeyboardRow();
         KeyboardRow row4 = new KeyboardRow();
+        KeyboardRow row5 = new KeyboardRow();
         row1.add(new KeyboardButton("Button 1"));
         row2.add(new KeyboardButton("Button 2"));
         row3.add(new KeyboardButton("Button 3"));
         row4.add(new KeyboardButton("О боте"));
+        row5.add(new KeyboardButton("Хочу команду"));
         keyboard.add(row1);
         keyboard.add(row2);
         keyboard.add(row3);
         keyboard.add(row4);
+        keyboard.add(row5);
         replyKeyboardMarkup.setKeyboard(keyboard);
         return replyKeyboardMarkup;
     }

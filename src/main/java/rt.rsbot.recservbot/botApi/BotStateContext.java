@@ -14,6 +14,7 @@ import java.util.Map;
 
 @Component
 public class BotStateContext {
+
     private Map<BotState, InputMessageHandler> messageHandlers = new HashMap<>();
 
     public BotStateContext(List<InputMessageHandler> messageHandlers) {

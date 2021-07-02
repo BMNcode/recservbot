@@ -14,6 +14,7 @@ import rt.rsbot.recservbot.cache.DataCacheImp;
 
 @Component
 public class BotUpdateHandle {
+
     private final BotStateContext botStateContext;
     private final DataCacheImp dataCacheImp;
 
@@ -44,6 +45,9 @@ public class BotUpdateHandle {
                 break;
             case "О боте":
                 botState = BotState.SHOW_ABOUT_ME;
+                break;
+            case "Хочу команду":
+                botState = BotState.GET_RESUME;
                 break;
             default:
                 botState = dataCacheImp.getUserCurrentBotState(userId);
