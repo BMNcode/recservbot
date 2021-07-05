@@ -1,6 +1,7 @@
 package rt.rsbot.recservbot.botApi.handlers;
 
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import rt.rsbot.recservbot.botApi.BotState;
@@ -21,6 +22,11 @@ public class MainMenuHandler implements InputMessageHandler {
     @Override
     public SendMessage handle(Message message) {
         return mainMenuService.getMainMenuMessage(message.getChatId(), "Главное меню");
+    }
+
+    @Override
+    public SendDocument handleDocument(Message message) {
+        return null;
     }
 
     @Override

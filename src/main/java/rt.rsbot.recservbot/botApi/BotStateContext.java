@@ -1,6 +1,7 @@
 package rt.rsbot.recservbot.botApi;
 
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
@@ -24,6 +25,11 @@ public class BotStateContext {
     SendMessage processInputMessage(BotState currentState, Message message) {
         InputMessageHandler currentMessageHandler = findMessageHandler(currentState);
         return currentMessageHandler.handle(message);
+    }
+
+    SendDocument processInputMessageDoc(BotState currentState, Message message) {
+        InputMessageHandler currentMessageHandler = findMessageHandler(currentState);
+        return currentMessageHandler.handleDocument(message);
     }
 
     private InputMessageHandler findMessageHandler(BotState currentState) {

@@ -1,6 +1,8 @@
 package rt.rsbot.recservbot.botApi;
 
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import rt.rsbot.recservbot.RecruitingServiceBot;
@@ -25,4 +27,16 @@ public class BotRestHandle {
            }
        });
     }
+
+//    public PartialBotApiMethod<?> handleRestDoc(){
+//        dataCacheImp.getUserBotStates().forEach((k,v)->{
+//            try {
+//                SendDocument sendDocument = new SendDocument();
+//                sendDocument.setDocument("http://localhost:8080/orders/download-pdf");
+//                bot.execute(sendDocument);
+//            } catch (TelegramApiException e) {
+//                e.printStackTrace();
+//            }
+//        });
+//    }
 }

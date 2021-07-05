@@ -3,10 +3,14 @@ package rt.rsbot.recservbot;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramWebhookBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import rt.rsbot.recservbot.botApi.BotUpdateHandle;
 
 public class RecruitingServiceBot extends TelegramWebhookBot {
+
     private final BotUpdateHandle handle;
 
     private String username;
@@ -31,6 +35,11 @@ public class RecruitingServiceBot extends TelegramWebhookBot {
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
         return handle.handleUpdate(update);
+    }
+
+    public PartialBotApiMethod<?> onWebhookUpdateReceivedDoc(Update update) {
+        SendDocument sendDocument = handle.handleUpdateDoc(update);
+        return sendDocument;
     }
 
     @Override

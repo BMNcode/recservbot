@@ -2,6 +2,7 @@ package rt.rsbot.recservbot.botApi;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -33,6 +34,16 @@ public class BotUpdateHandle {
         return replyMessage;
     }
 
+    public SendDocument handleUpdateDoc(Update update) {
+        SendDocument replyDocument = null;
+
+        Message message = update.getMessage();
+        if (message != null && message.hasText()) {
+            replyDocument = handleInputMessageDocument(message);
+        }
+        return replyDocument;
+    }
+
     private SendMessage HandleInputMessage(Message message) {
         String inputMessage = message.getText();
         int userId = Math.toIntExact(message.getFrom().getId());
@@ -46,9 +57,6 @@ public class BotUpdateHandle {
             case "О боте":
                 botState = BotState.SHOW_ABOUT_ME;
                 break;
-            case "Хочу команду":
-                botState = BotState.GET_RESUME;
-                break;
             default:
                 botState = dataCacheImp.getUserCurrentBotState(userId);
                 break;
@@ -57,4 +65,25 @@ public class BotUpdateHandle {
         replyMessage = botStateContext.processInputMessage(botState, message);
         return replyMessage;
     }
+
+    private SendDocument handleInputMessageDocument(Message message) {
+        String inputMessage = message.getText();
+        int userId = Math.toIntExact(message.getFrom().getId());
+        BotState botState;
+        SendDocument replyDocument;
+        switch (inputMessage) {
+            case "Хочу команду":
+                botState = BotState.GET_RESUME;
+                break;
+            default:
+                botState = dataCacheImp.getUserCurrentBotState(userId);
+                break;
+
+        }
+        dataCacheImp.setUserCurrentBotState(userId, botState);
+        replyDocument = botStateContext.processInputMessageDoc(botState, message);
+        return replyDocument;
+
+    }
+
 }
